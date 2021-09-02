@@ -1,0 +1,17 @@
+17. Develop a form in to pick a date from Calendar control and display the day,month, and year details in separate text boxes. 
+	
+	//Use With monthCalendar
+	private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            textBoxDay.Text = monthCalendar1.SelectionRange.Start.Day.ToString();
+            textBoxMonth.Text = monthCalendar1.SelectionRange.Start.Month.ToString();
+            textBoxYear.Text = monthCalendar1.SelectionRange.Start.Year.ToString();
+        }
+		
+	//Use With dateTimePicker
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            textBoxDay.Text = dateTimePicker1.Value.Day.ToString();
+            textBoxMonth.Text = dateTimePicker1.Value.Month.ToString();
+            textBoxYear.Text = dateTimePicker1.Value.Year.ToString();
+        }

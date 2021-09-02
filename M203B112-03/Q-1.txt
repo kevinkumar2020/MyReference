@@ -1,0 +1,37 @@
+1. Write a program that demonstrates the usage of a user defined Delegate. 
+
+//boxClass.cs
+
+using System;
+
+namespace Q1
+{
+    class boxClass
+    {
+        public delegate void boxDelegate(double length, double Breadths , double height);
+
+        public void volumn(double length, double Breadths, double height)
+        {
+            Console.WriteLine("Area is: {0}", (length * Breadths * height));
+        }
+    }
+}
+
+//Program.cs
+
+using System;
+using static Q1.boxClass;
+
+namespace Q1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            boxClass b1 = new boxClass();
+            boxDelegate bd1 = new boxDelegate(b1.volumn);
+            bd1.Invoke(10.5, 25.5,35.20);
+            Console.ReadKey();
+        }
+    }
+}

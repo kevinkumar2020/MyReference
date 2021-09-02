@@ -1,0 +1,89 @@
+3. Write a program demonstrating the use of various Execute methods.
+
+using System;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+
+namespace Q3
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        SqlConnection cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\CSharp\Prectical_sheet _3\Q3\Q3\DBEmployee.mdf;Integrated Security=True");
+        SqlCommand cmd;
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        //1. ExecuteNonQuery()
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            cn.Open();
+            string insertQuery = "insert into emp (EmpName,EmpDesignation,EmpCity) values (@empname,@empdesignation,@empcity)";
+            cmd = new SqlCommand(insertQuery, cn);
+            cmd.Parameters.AddWithValue("@empname", textEmpName.Text);
+            cmd.Parameters.AddWithValue("@empdesignation",comboBoxDesignation.SelectedItem);
+            cmd.Parameters.AddWithValue("@empcity",comboBoxCity.SelectedItem);
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
+            cn.Close();
+            MessageBox.Show("ExecuteNonQuery in SqlCommand executed !!", "Insert Recorde");
+        }
+
+        //2. ExecuteScalar()
+        private void buttonCountEmp_Click(object sender, EventArgs e)
+        {
+            string sql = "select count(*) from emp";
+            try
+            {
+                cn.Open();
+                cmd = new SqlCommand(sql, cn);
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                cmd.Dispose();
+                cn.Close();
+                MessageBox.Show(" No. of Employee " + count);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        //3.ExecuteReader()
+        private void buttonShowList_Click(object sender, EventArgs e)
+        {
+            SqlDataReader dr;
+            string output = "";
+            string sql = "select * from emp";
+            try
+            {
+                cn.Open();
+                cmd = new SqlCommand(sql, cn);
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    output += dr.GetValue(1) + " - " + dr.GetValue(2) + " - " + dr.GetValue(3) + "\n";
+                }
+                MessageBox.Show(output);
+                dr.Close();
+                cmd.Dispose();
+                cn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+    }
+}

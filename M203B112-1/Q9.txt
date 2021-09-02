@@ -1,0 +1,34 @@
+9. Take a combobox and enter values in it. The textbox should instantly display the least value within the combo box. 
+
+	public int handelMin(params int[] arr)
+        {
+            int min = int.MaxValue;
+            foreach (int value in arr)
+            {
+                if (value < min)
+                {
+                    min = value;
+                }
+            }
+            return min;
+        }
+
+	private void textBoxAddvalue_DoubleClick(object sender, EventArgs e)
+        {
+            if (textBoxAddvalue.Text == "")
+            {
+                MessageBox.Show("Enter Value", "Message");
+            }else
+            {
+                comboBox1.Items.Add(textBoxAddvalue.Text);
+                int[] array = new int[comboBox1.Items.Count];
+                for (int i = 0; i < comboBox1.Items.Count; i++)
+                {
+                    object obj = comboBox1.Items[i];
+                    array[i] = Convert.ToInt32(obj);
+                }
+                textBoxAddvalue.Clear();
+                textBox1.Text = handelMin(array).ToString();
+            }
+            
+        }

@@ -1,0 +1,191 @@
+5. Develop a Student Management System with Disconnected Architecture. 
+
+using System;
+using System.Data;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.IO;
+
+namespace Q5
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            displaydetail();
+        }
+        String sql = "", strConnection = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\CSharp\Prectical_sheet _3\Q5\Q5\studentmanagements.mdf;Integrated Security = True";
+
+        public void displaydetail()
+        {
+            sql = "SELECT * FROM Students";
+            SqlDataAdapter da = new SqlDataAdapter();
+            DataSet ds = new DataSet();
+            using (SqlConnection cn = new SqlConnection(strConnection))
+            {
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.CommandType = CommandType.Text;
+                da.SelectCommand = cmd;
+                da.Fill(ds, "Students");
+                dataGridView1.DataSource = ds.Tables["Students"];
+            }
+        }
+
+        public void dataClear()
+        {
+            textsidno.Text = null;
+            textrollno.Text = null;
+            textfullname.Text = null;
+            textaddress.Text = null;
+            comboBoxstd.Text = null;
+            dob.Value = System.DateTime.Today;
+            textcontectnumber.Text = null;
+            pictureBox1.Image = null;
+
+        }
+
+        private void btnbrowse_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.InitialDirectory = "C://Desktop";
+            openFileDialog1.Title = "Select image to be upload.";
+            openFileDialog1.Filter = "Image Only(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png";
+            openFileDialog1.FilterIndex = 1;
+            try
+            {
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    if (openFileDialog1.CheckFileExists)
+                    {
+                        string path = Path.GetFullPath(openFileDialog1.FileName);
+                        lblImagePath.Text = path;
+                        pictureBox1.Image = new Bitmap(openFileDialog1.FileName);
+                        pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please Upload image.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnsave_Click(object sender, EventArgs e)
+        {
+            string filename = Path.GetFileName(openFileDialog1.FileName);
+            SqlDataAdapter da = new SqlDataAdapter();
+            DataSet ds = new DataSet();
+            using (SqlConnection cn = new SqlConnection(strConnection))
+            {
+                SqlCommand cmd = new SqlCommand("insert into Students(SidNo,RollNo,FullName,Address,Standerd,Gender,DateOfBirth,ContactNumber,Picture) values (@sid,@rollno,@fullname,@address,@std,@gender,@dob,@contactno,@picture)", cn);
+                cmd.Parameters.AddWithValue("@sid", textsidno.Text);
+                cmd.Parameters.AddWithValue("@rollno", textrollno.Text);
+                cmd.Parameters.AddWithValue("@fullname", textfullname.Text);
+                cmd.Parameters.AddWithValue("@address", textaddress.Text);
+                cmd.Parameters.AddWithValue("@std", comboBoxstd.SelectedItem);
+                if (gendermale.Checked)
+                {
+                    cmd.Parameters.AddWithValue("@gender", gendermale.Text);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@gender", genderfemale.Text);
+                }
+                cmd.Parameters.AddWithValue("@dob", dob.Value.ToString());
+                cmd.Parameters.AddWithValue("@contactno", textcontectnumber.Text);
+                cmd.Parameters.AddWithValue("@picture", lblImagePath.Text);
+                string path = Application.StartupPath.Substring(0, (Application.StartupPath.Length - 10));
+                File.Copy(openFileDialog1.FileName, path + "\\Image\\" + filename);
+                cmd.CommandType = CommandType.Text;
+                da.SelectCommand = cmd;
+                da.Fill(ds, "Students");
+                dataGridView1.DataSource = ds.Tables["Students"];
+                MessageBox.Show("Record Inserted Successfully");
+                displaydetail();
+                dataClear();
+            }
+
+        }
+
+        int Id;
+        string gender;
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Id = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].FormattedValue);
+            textsidno.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+            textrollno.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+            textfullname.Text = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
+            textaddress.Text = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
+            comboBoxstd.Text = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
+            gender = Convert.ToString(dataGridView1.Rows[e.RowIndex].Cells[6].FormattedValue);
+            if (gender == "MALE")
+            {
+                gendermale.Checked.ToString();
+            }
+            else
+            {
+                genderfemale.Checked.ToString();
+            }
+            textcontectnumber.Text = dataGridView1.Rows[e.RowIndex].Cells[8].Value.ToString();
+        }
+
+        private void btnupdate_Click(object sender, EventArgs e)
+        {
+            // MessageBox.Show(textsidno.Text + " " + textrollno.Text + "" + textstudentname.Text + "" + textaddress.Text + "" + comboBoxstd.SelectedItem + "" + textdiv.Text + "" + genderfemale.Text + "" + dob.Value.ToString() + "" + textcontectnumber.Text + "" + lblImagePath.Text);
+            string filename = Path.GetFileName(openFileDialog1.FileName);
+            SqlDataAdapter da = new SqlDataAdapter();
+            DataSet ds = new DataSet();
+            using (SqlConnection cn = new SqlConnection(strConnection))
+            {
+                SqlCommand cmd = new SqlCommand("update Students set SidNo = @sid,RollNo = @rollno,FullName = @fullname,Address = @address,Standerd= @std,Gender = @gender,DateOfBirth = @dob,ContactNumber = @contactno,Picture = @picture where Id = '" + Id + "'  ", cn);
+                cmd.Parameters.AddWithValue("@sid", textsidno.Text);
+                cmd.Parameters.AddWithValue("@rollno", textrollno.Text);
+                cmd.Parameters.AddWithValue("@fullname", textfullname.Text);
+                cmd.Parameters.AddWithValue("@address", textaddress.Text);
+                cmd.Parameters.AddWithValue("@std", comboBoxstd.SelectedItem);
+                if (gendermale.Checked)
+                {
+                    cmd.Parameters.AddWithValue("@gender", gendermale.Text);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@gender", genderfemale.Text);
+                }
+                cmd.Parameters.AddWithValue("@dob", dob.Value.ToString());
+                cmd.Parameters.AddWithValue("@contactno", textcontectnumber.Text);
+                cmd.Parameters.AddWithValue("@picture", lblImagePath.Text);
+                string path = Application.StartupPath.Substring(0, (Application.StartupPath.Length - 10));
+                File.Copy(openFileDialog1.FileName, path + "\\Image\\" + filename);
+                cmd.CommandType = CommandType.Text;
+                da.SelectCommand = cmd;
+                da.Fill(ds, "Students");
+                dataGridView1.DataSource = ds.Tables["Students"];
+                MessageBox.Show("Record Updated Successfully");
+                displaydetail();
+                dataClear();
+            }
+        }
+
+        private void btndelete_Click(object sender, EventArgs e)
+        {
+            SqlDataAdapter da = new SqlDataAdapter();
+            DataSet ds = new DataSet();
+            using (SqlConnection cn = new SqlConnection(strConnection))
+            {
+                SqlCommand cmd = new SqlCommand("delete from Students where Id = '" + Id + "' ", cn);
+                cmd.CommandType = CommandType.Text;
+                da.SelectCommand = cmd;
+                da.Fill(ds, "Students");
+                dataGridView1.DataSource = ds.Tables["Students"];
+                MessageBox.Show("Record Deleted Successfully");
+                displaydetail();
+                dataClear();
+            }
+        }
+    }
+}

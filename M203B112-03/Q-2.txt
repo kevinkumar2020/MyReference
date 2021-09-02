@@ -1,0 +1,51 @@
+2.  Write a program that calls a parameterized stored procedure.
+
+using System;
+using System.Data;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+
+namespace Q2
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+            SqlConnection cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\CSharp\Prectical_sheet _3\Q2\Q2\DBEmployee.mdf;Integrated Security=True");
+            cn.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cn;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "Empcity";
+            SqlParameter param = new SqlParameter("@city",comboBox1.SelectedItem);
+            param.Direction = ParameterDirection.Input;
+            param.DbType = DbType.String;
+            cmd.Parameters.Add(param);
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            string output = "";
+            for (i = 0; i <= ds.Tables[0].Rows.Count - 1; i++)
+            {
+                output += ds.Tables[0].Rows[i][0].ToString() + "\n";
+            }
+            MessageBox.Show(output);
+            cn.Close();
+        }
+
+        //Procedure
+        //CREATE PROCEDURE[dbo].[Empcity]
+        //@city varchar(20)
+        //AS
+        //    SELECT EmpName FROM emp WHERE EmpCity = @city
+        //    GO
+
+    }
+}

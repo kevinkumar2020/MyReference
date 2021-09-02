@@ -1,0 +1,34 @@
+5. Take two ListBoxes and two command buttons. The selected items in list1 should  move to List2 on pressing the >> button. 
+The selected items in list2 should move to  list1 on pressing the << button. 
+
+ 	 private void btnRightMove_Click(object sender, EventArgs e)
+        {
+            if(listBox1.SelectedItems.Count > 0)
+            {
+                while(listBox1.SelectedItems.Count > 0)
+                {
+                    listBox2.Items.Add(listBox1.SelectedItem);
+                    listBox1.Items.Remove(listBox1.SelectedItem);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please Select Item", "Message"); 
+            }
+        }
+
+        private void btnLeftMove_Click(object sender, EventArgs e)
+        {
+            if(listBox2.SelectedItems.Count > 0)
+            {
+                while (listBox2.SelectedItems.Count > 0)
+                {
+                    listBox1.Items.Add(listBox2.SelectedItem);
+                    listBox2.Items.Remove(listBox2.SelectedItem);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please Select Item", "Message");
+            }
+        }

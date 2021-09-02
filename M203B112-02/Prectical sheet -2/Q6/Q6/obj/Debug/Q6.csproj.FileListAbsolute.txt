@@ -1,0 +1,5 @@
+E:\C-Sharp\Prectical sheet -2\Q6\Q6\bin\Debug\Q6.exe.config
+E:\C-Sharp\Prectical sheet -2\Q6\Q6\bin\Debug\Q6.exe
+E:\C-Sharp\Prectical sheet -2\Q6\Q6\bin\Debug\Q6.pdb
+E:\C-Sharp\Prectical sheet -2\Q6\Q6\obj\Debug\Q6.exe
+E:\C-Sharp\Prectical sheet -2\Q6\Q6\obj\Debug\Q6.pdb

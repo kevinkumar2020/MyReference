@@ -1,0 +1,6 @@
+10. Take a horizontal scroll bar and a text box. As and when the bar is moved the  corresponding value should be displayed in the text box.  
+
+	private void hScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+            textBox1.Text = hScrollBar1.Value.ToString();
+        }

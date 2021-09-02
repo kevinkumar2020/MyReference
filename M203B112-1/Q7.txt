@@ -1,0 +1,21 @@
+7. Take few controls and a text box. The control name should be displayed in the text  box as when the mouse pointer moves over the control 
+
+	private void btnLeftMove_MouseHover(object sender, EventArgs e)
+        {
+            textBox1.Text = btnLeftMove.Name;
+        }
+
+        private void dateTimePicker1_MouseHover(object sender, EventArgs e)
+        {
+            textBox1.Text = dateTimePicker1.Name;
+        }
+
+        private void dataGridView1_MouseHover(object sender, EventArgs e)
+        {
+            textBox1.Text = dataGridView1.Name;
+        }
+
+        private void listBox3_MouseHover(object sender, EventArgs e)
+        {
+            textBox1.Text = listBox3.Name;
+        }

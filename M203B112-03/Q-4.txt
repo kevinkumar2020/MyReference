@@ -1,0 +1,264 @@
+4. Develop a Student Management System with Connected Architecture.
+
+using System;
+using System.Data;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.IO;
+
+namespace Q4
+{
+    public partial class Form1 : Form
+    {
+
+        public Form1()
+        {
+            InitializeComponent();
+            displaydetail();
+        }
+        SqlConnection cn = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename=E:\C-Sharp\Prectical sheet -3\Q4\Q4\studentmanagement.mdf;Integrated Security = True");
+        SqlCommand cmd;
+        SqlDataAdapter da;
+        SqlDataReader dr;
+
+        public void displaydetail()
+        {
+            cn.Open();
+            string selectQuery = "select * from Students";
+            cmd = new SqlCommand(selectQuery, cn);
+            da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            dataGridView1.DataSource = dt;
+            cn.Close();
+        }
+
+        public void dataClear()
+        {
+            textsidno.Text = null;
+            textrollno.Text = null;
+            textfullname.Text = null;
+            textaddress.Text = null;
+            comboBoxstd.Text = null;
+            dob.Value = System.DateTime.Today;
+            textcontectnumber.Text = null;
+            pictureBox1.Image = null;
+
+        }
+
+        private void btnsave_Click(object sender, EventArgs e)
+        {
+            cn.Close();
+            cn.Open();
+            cmd = new SqlCommand();
+            cmd.Connection = cn;
+            cmd.CommandText = "Select SidNo From Students where SidNo = '" + textsidno.Text + "'";
+            dr = cmd.ExecuteReader();
+            if (dr.HasRows)
+            {
+                MessageBox.Show("SidNumber Already exits");
+            }
+            else
+            {
+                try
+                {
+                    dr.Close();
+                    cn.Close();
+                    string filename = Path.GetFileName(openFileDialog1.FileName);
+                    if (filename == null)
+                    {
+                        MessageBox.Show("Please select a valid image.");
+                    }
+                    else
+                    {
+                        cn.Open();
+                        cmd = new SqlCommand();
+                        cmd.Connection = cn;
+                        cmd.CommandText = "insert into Students(SidNo,RollNo,FullName,Address,Standerd,Gender,DateOfBirth,ContectNumber,Picture) values (@sidno,@rollno,@fullname,@address,@std,@gender,@dob,@contectnumber,@picture)";
+                        cmd.Parameters.AddWithValue("@sidno", textsidno.Text);
+                        cmd.Parameters.AddWithValue("@rollno", textrollno.Text);
+                        cmd.Parameters.AddWithValue("@fullname", textfullname.Text);
+                        cmd.Parameters.AddWithValue("@address", textaddress.Text);
+                        cmd.Parameters.AddWithValue("@std", comboBoxstd.SelectedItem);
+                        if (gendermale.Checked)
+                        {
+                            cmd.Parameters.AddWithValue("@gender", gendermale.Text);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@gender", genderfemale.Text);
+                        }
+                        cmd.Parameters.AddWithValue("@dob", dob.Value.ToString());
+                        cmd.Parameters.AddWithValue("@contectnumber", textcontectnumber.Text);
+                        cmd.Parameters.AddWithValue("@picture", lblImagePath.Text);
+                        string path = Application.StartupPath.Substring(0, (Application.StartupPath.Length - 10));
+                        File.Copy(openFileDialog1.FileName, path + "\\Image\\" + filename);
+                        cmd.ExecuteNonQuery();
+                        cn.Close();
+                        cmd.Dispose();
+                        MessageBox.Show("Record Save successfully.");
+                        displaydetail();
+                        dataClear();
+                    }
+                }
+                 catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "File Already exits");
+                }
+
+            }
+
+        }
+
+        private void btnbrowse_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.InitialDirectory = "C://Desktop";
+            openFileDialog1.Title = "Select image to be upload.";
+            openFileDialog1.Filter = "Image Only(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png";
+            openFileDialog1.FilterIndex = 1;
+            try
+            {
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    if (openFileDialog1.CheckFileExists)
+                    {
+                        string path = Path.GetFullPath(openFileDialog1.FileName);
+                        lblImagePath.Text = path;
+                        pictureBox1.Image = new Bitmap(openFileDialog1.FileName);
+                        pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please Upload image.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        int Id;
+        string gender;
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Id = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].FormattedValue);
+            textsidno.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+            textrollno.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+            textfullname.Text = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
+            textaddress.Text = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
+            comboBoxstd.Text = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
+            gender = Convert.ToString(dataGridView1.Rows[e.RowIndex].Cells[6].FormattedValue);
+            if(gender == "MALE")
+            {
+                gendermale.Checked.ToString();
+            }
+            else
+            {
+                genderfemale.Checked.ToString();
+            }
+            textcontectnumber.Text = dataGridView1.Rows[e.RowIndex].Cells[8].Value.ToString();
+
+            cn.Open();
+            cmd = new SqlCommand("select Picture from Students where Id = '" + Id + "'", cn);
+            string img = cmd.ExecuteScalar().ToString();
+            pictureBox1.Image = Image.FromFile(img);
+            cn.Close();
+            lblImagePath.Text = img;
+        }
+
+        private void btndelete_Click(object sender, EventArgs e)
+        {
+            cn.Open();
+            if (Id != null)
+            {
+                string deleteQuery = "delete from Students where Id = '" + Id + "' ";
+                cmd = new SqlCommand(deleteQuery, cn);
+                if (MessageBox.Show("You Want To Delete Record", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select Any Record");
+            }
+            cn.Close();
+            displaydetail();
+            dataClear();
+        }
+
+        private void btnupdate_Click(object sender, EventArgs e)
+        {
+            cn.Close();
+            cn.Open();
+            cmd = new SqlCommand("select SidNo from Students where Id = '" + Id + "'",cn);
+            int sidno = Convert.ToInt32(cmd.ExecuteScalar());
+            cmd = new SqlCommand("select Picture from Students where Id = '" + Id + "'", cn);
+            string picture = cmd.ExecuteScalar().ToString();
+            cn.Close();
+
+            cn.Open();
+            cmd = new SqlCommand();
+            cmd.Connection = cn;
+            cmd.CommandText = "Select SidNo From Students where SidNo = '" + sidno + "' OR Picture = '" + picture + "'";
+            if (cmd.ExecuteNonQuery() < 0)
+            {
+                try
+                {
+                    cn.Close();
+                    string filename = Path.GetFileName(openFileDialog1.FileName);
+                    if (filename == null)
+                    {
+                        MessageBox.Show("Please select a valid image.");
+                    }
+                    else
+                    {
+                        cn.Open();
+                        cmd = new SqlCommand();
+                        cmd.Connection = cn;
+                        cmd.CommandText = "update Students set SidNo = @sidno,RollNo = @rollno,FullName = @fullname,Address = @address,Standerd = @std,Gender = @gender,DateOfBirth = @dob,ContectNumber = @contectnumber,Picture = @picture where Id = '" + Id + "' ";
+                        cmd.Parameters.AddWithValue("@sidno", textsidno.Text);
+                        cmd.Parameters.AddWithValue("@rollno", textrollno.Text);
+                        cmd.Parameters.AddWithValue("@fullname", textfullname.Text);
+                        cmd.Parameters.AddWithValue("@address", textaddress.Text);
+                        cmd.Parameters.AddWithValue("@std", comboBoxstd.SelectedItem);
+                        if (gendermale.Checked)
+                        {
+                            cmd.Parameters.AddWithValue("@gender", gendermale.Text);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@gender", genderfemale.Text);
+                        }
+                        cmd.Parameters.AddWithValue("@dob", dob.Value.ToString());
+                        cmd.Parameters.AddWithValue("@contectnumber", textcontectnumber.Text);
+                        cmd.Parameters.AddWithValue("@picture", lblImagePath.Text);
+
+                        if (lblImagePath.Text != picture)
+                        {
+                            string path = Application.StartupPath.Substring(0, (Application.StartupPath.Length - 10));
+                            File.Copy(openFileDialog1.FileName, path + "\\Image\\" + filename);
+                        }
+                        cmd.ExecuteNonQuery();
+                        cn.Close();
+                        cmd.Dispose();
+                        MessageBox.Show("Record Update successfully.");
+                        displaydetail();
+                        dataClear();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "File Already exits");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Record Alredy Exist");
+            }
+        }
+    }
+}

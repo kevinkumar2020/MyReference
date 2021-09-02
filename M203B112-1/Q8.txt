@@ -1,0 +1,26 @@
+8. Take two DateTimePicker controls and a list box, the dates between the given two  dates should be added to the listbox. 
+
+	private void button1_Click(object sender, EventArgs e)
+        {
+            DateTime dt1 = new DateTime();
+            DateTime dt2 = new DateTime();
+            dt1 = dateTimePicker1.Value;
+            dt2 = dateTimePicker2.Value;
+            if (dt1 == dt2)
+            {
+                listBoxDateDisplay.Items.Add(dt1);
+            }else if (dt1 > dt2)
+            {
+                MessageBox.Show("This Is Invalid Selection...!", "Message");
+            }
+            else
+            {
+                listBoxDateDisplay.Items.Clear();
+                listBoxDateDisplay.Items.Add(dt1);
+                while (dt1 < dt2)
+                {
+                    dt1 = dt1.AddDays(1);
+                    listBoxDateDisplay.Items.Add(dt1);
+                }
+            }
+        }

@@ -1,0 +1,26 @@
+11. Add two labels to your form. Write code to toggle the labels on and off. The two  labels should disappear with the textboxes.
+    And they should reappear when the  menu item is toggled to the on position.
+
+	private void Form11_Load(object sender, EventArgs e)
+        {
+            labelOn.Visible = false;
+            textBoxOn.Visible = false;
+            labelOff.Visible = false;
+            textBoxOff.Visible = false;
+        }
+
+        private void oNToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            labelOn.Visible = true;
+            textBoxOn.Visible = true;
+            labelOff.Visible = false;
+            textBoxOff.Visible = false;
+        }
+
+        private void oFFToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            labelOff.Visible = true;
+            textBoxOff.Visible = true;
+            labelOn.Visible = false;
+            textBoxOn.Visible = false;
+        } 

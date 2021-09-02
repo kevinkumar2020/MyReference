@@ -1,0 +1,6 @@
+2. Take a text box. The text typed in the text box should get converted to upper case as  and when the characters are being typed. 
+
+	private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            textBox1.Text = textBox1.Text.ToUpper();
+        }

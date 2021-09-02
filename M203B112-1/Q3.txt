@@ -1,0 +1,30 @@
+3. Take a ListBox , TextBox and a Command Button and RadioButton. The option  buttons are Add and Delete.
+   The Text entered should be added or deleted from the  list box as per the selection in the RadioButton. 
+
+ 	private void btnClick_Click(object sender, EventArgs e)
+        {
+            bool check = listBox1.Items.Cast<string>().Any(data => data == textBox1.Text);
+            if (radioButtonAdd.Checked)
+            {
+                if (check)
+                {
+                    MessageBox.Show("Details Already In ListBox", "Message");
+                }else{
+                    listBox1.Items.Add(textBox1.Text);
+                    textBox1.Text = "";
+                }
+            }else if(radioButtonDelete.Checked){
+                if (check)
+                {
+                    listBox1.Items.Remove(textBox1.Text);
+                    textBox1.Text = "";
+                }else
+                {
+                    MessageBox.Show("No Details Found In ListBox", "Message");
+                }
+            }else
+            {
+                MessageBox.Show("Select Any Operation..!", "Message");
+            }
+            
+        }
