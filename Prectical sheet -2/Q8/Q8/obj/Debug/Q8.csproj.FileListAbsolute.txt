@@ -1,0 +1,5 @@
+E:\C-Sharp\Prectical sheet -2\Q8\Q8\bin\Debug\Q8.exe.config
+E:\C-Sharp\Prectical sheet -2\Q8\Q8\bin\Debug\Q8.exe
+E:\C-Sharp\Prectical sheet -2\Q8\Q8\bin\Debug\Q8.pdb
+E:\C-Sharp\Prectical sheet -2\Q8\Q8\obj\Debug\Q8.exe
+E:\C-Sharp\Prectical sheet -2\Q8\Q8\obj\Debug\Q8.pdb

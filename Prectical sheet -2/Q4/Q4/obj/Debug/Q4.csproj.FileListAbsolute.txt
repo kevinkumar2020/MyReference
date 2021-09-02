@@ -1,0 +1,6 @@
+E:\C-Sharp\Prectical sheet -2\Q4\Q4\bin\Debug\Q4.exe.config
+E:\C-Sharp\Prectical sheet -2\Q4\Q4\bin\Debug\Q4.exe
+E:\C-Sharp\Prectical sheet -2\Q4\Q4\bin\Debug\Q4.pdb
+E:\C-Sharp\Prectical sheet -2\Q4\Q4\obj\Debug\Q4.csprojResolveAssemblyReference.cache
+E:\C-Sharp\Prectical sheet -2\Q4\Q4\obj\Debug\Q4.exe
+E:\C-Sharp\Prectical sheet -2\Q4\Q4\obj\Debug\Q4.pdb

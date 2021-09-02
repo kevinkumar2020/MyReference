@@ -1,0 +1,12 @@
+c:\users\kevin\onedrive\documents\visual studio 2015\Projects\DesignDetail\DesignDetail\bin\Debug\DesignDetail.exe.config
+c:\users\kevin\onedrive\documents\visual studio 2015\Projects\DesignDetail\DesignDetail\obj\Debug\DesignDetail.csprojResolveAssemblyReference.cache
+c:\users\kevin\onedrive\documents\visual studio 2015\Projects\DesignDetail\DesignDetail\obj\Debug\DesignDetail.Form1.resources
+c:\users\kevin\onedrive\documents\visual studio 2015\Projects\DesignDetail\DesignDetail\obj\Debug\DesignDetail.frmData.resources
+c:\users\kevin\onedrive\documents\visual studio 2015\Projects\DesignDetail\DesignDetail\obj\Debug\DesignDetail.Properties.Resources.resources
+c:\users\kevin\onedrive\documents\visual studio 2015\Projects\DesignDetail\DesignDetail\obj\Debug\DesignDetail.csproj.GenerateResource.Cache
+c:\users\kevin\onedrive\documents\visual studio 2015\Projects\DesignDetail\DesignDetail\bin\Debug\DesignDetail.exe
+c:\users\kevin\onedrive\documents\visual studio 2015\Projects\DesignDetail\DesignDetail\bin\Debug\DesignDetail.pdb
+c:\users\kevin\onedrive\documents\visual studio 2015\Projects\DesignDetail\DesignDetail\obj\Debug\DesignDetail.exe
+c:\users\kevin\onedrive\documents\visual studio 2015\Projects\DesignDetail\DesignDetail\obj\Debug\DesignDetail.pdb
+C:\Users\kevin\onedrive\documents\visual studio 2015\Projects\DesignDetail\DesignDetail\bin\Debug\DBDesign.mdf
+C:\Users\kevin\onedrive\documents\visual studio 2015\Projects\DesignDetail\DesignDetail\bin\Debug\DBDesign_log.ldf
