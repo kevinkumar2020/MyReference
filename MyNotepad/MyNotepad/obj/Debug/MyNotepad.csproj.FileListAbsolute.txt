@@ -1,0 +1,9 @@
+E:\C-Sharp\MyNotepad\MyNotepad\bin\Debug\MyNotepad.exe.config
+E:\C-Sharp\MyNotepad\MyNotepad\bin\Debug\MyNotepad.exe
+E:\C-Sharp\MyNotepad\MyNotepad\bin\Debug\MyNotepad.pdb
+E:\C-Sharp\MyNotepad\MyNotepad\obj\Debug\MyNotepad.csprojResolveAssemblyReference.cache
+E:\C-Sharp\MyNotepad\MyNotepad\obj\Debug\MyNotepad.Form1.resources
+E:\C-Sharp\MyNotepad\MyNotepad\obj\Debug\MyNotepad.Properties.Resources.resources
+E:\C-Sharp\MyNotepad\MyNotepad\obj\Debug\MyNotepad.csproj.GenerateResource.Cache
+E:\C-Sharp\MyNotepad\MyNotepad\obj\Debug\MyNotepad.exe
+E:\C-Sharp\MyNotepad\MyNotepad\obj\Debug\MyNotepad.pdb

@@ -1,0 +1,9 @@
+E:\C-Sharp\WindowsApplication\NumberPuzzalGame\NumberPuzzalGame\bin\Debug\NumberPuzzalGame.exe.config
+E:\C-Sharp\WindowsApplication\NumberPuzzalGame\NumberPuzzalGame\obj\Debug\NumberPuzzalGame.csprojResolveAssemblyReference.cache
+E:\C-Sharp\WindowsApplication\NumberPuzzalGame\NumberPuzzalGame\obj\Debug\NumberPuzzalGame.Form1.resources
+E:\C-Sharp\WindowsApplication\NumberPuzzalGame\NumberPuzzalGame\obj\Debug\NumberPuzzalGame.Properties.Resources.resources
+E:\C-Sharp\WindowsApplication\NumberPuzzalGame\NumberPuzzalGame\obj\Debug\NumberPuzzalGame.csproj.GenerateResource.Cache
+E:\C-Sharp\WindowsApplication\NumberPuzzalGame\NumberPuzzalGame\bin\Debug\NumberPuzzalGame.exe
+E:\C-Sharp\WindowsApplication\NumberPuzzalGame\NumberPuzzalGame\bin\Debug\NumberPuzzalGame.pdb
+E:\C-Sharp\WindowsApplication\NumberPuzzalGame\NumberPuzzalGame\obj\Debug\NumberPuzzalGame.exe
+E:\C-Sharp\WindowsApplication\NumberPuzzalGame\NumberPuzzalGame\obj\Debug\NumberPuzzalGame.pdb
